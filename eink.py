@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw, ImageFont
 from observer import Observer
 
 try:
-    from waveshare_epd import epd2in13_V2
+    from waveshare_epd import epd2in13_V3
 except ImportError:
     pass
 
@@ -30,8 +30,8 @@ class Eink(Observer):
 
     @staticmethod
     def _init_display():
-        epd = epd2in13_V2.EPD()
-        epd.init(epd.FULL_UPDATE)
+        epd = epd2in13_V3.EPD()
+        epd.init()
         epd.Clear(0xFF)
         return epd
 
@@ -41,7 +41,7 @@ class Eink(Observer):
         self.epd.display(self.epd.getbuffer(screen_image_rotated))
 
     def close(self):
-        epd2in13_V2.epdconfig.module_exit()
+        epd2in13_V3.epdconfig.module_exit()
 
     def form_image(self, regions, screen_draw, image):
         def pos(x, y):
